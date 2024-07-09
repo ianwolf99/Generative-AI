@@ -21,9 +21,9 @@ return trainX, trainY, testX, testY
 # scale pixels
 def prep_pixels(train, test):
 # convert from integers to floats
-20.5. How to Develop an Improved Model 251
-train_norm = train.astype(✬float32✬)
-test_norm = test.astype(✬float32✬)
+
+train_norm = train.astype("float32")
+test_norm = test.astype("float32")
 # normalize to range 0-1
 train_norm = train_norm / 255.0
 test_norm = test_norm / 255.0
@@ -32,47 +32,47 @@ return train_norm, test_norm
 # define cnn model
 def define_model():
 model = Sequential()
-model.add(Conv2D(32, (3, 3), activation=✬relu✬, kernel_initializer=✬he_uniform✬,
-padding=✬same✬, input_shape=(32, 32, 3)))
-model.add(Conv2D(32, (3, 3), activation=✬relu✬, kernel_initializer=✬he_uniform✬,
-padding=✬same✬))
+model.add(Conv2D(32, (3, 3), activation="relu", kernel_initializer="he_uniform",
+padding="same", input_shape=(32, 32, 3)))
+model.add(Conv2D(32, (3, 3), activation="relu", kernel_initializer="he_uniform",
+padding="same"))
 model.add(MaxPooling2D((2, 2)))
 model.add(Dropout(0.2))
-model.add(Conv2D(64, (3, 3), activation=✬relu✬, kernel_initializer=✬he_uniform✬,
-padding=✬same✬))
-model.add(Conv2D(64, (3, 3), activation=✬relu✬, kernel_initializer=✬he_uniform✬,
-padding=✬same✬))
+model.add(Conv2D(64, (3, 3), activation="relu", kernel_initializer="he_uniform",
+padding="same"))
+model.add(Conv2D(64, (3, 3), activation="relu", kernel_initializer="he_uniform",
+padding="same"))
 model.add(MaxPooling2D((2, 2)))
 model.add(Dropout(0.2))
-model.add(Conv2D(128, (3, 3), activation=✬relu✬, kernel_initializer=✬he_uniform✬,
-padding=✬same✬))
-model.add(Conv2D(128, (3, 3), activation=✬relu✬, kernel_initializer=✬he_uniform✬,
-padding=✬same✬))
+model.add(Conv2D(128, (3, 3), activation="relu", kernel_initializer="he_uniform",
+padding="same"))
+model.add(Conv2D(128, (3, 3), activation="relu", kernel_initializer="he_uniform",
+padding="same"))
 model.add(MaxPooling2D((2, 2)))
 model.add(Dropout(0.2))
 model.add(Flatten())
-model.add(Dense(128, activation=✬relu✬, kernel_initializer=✬he_uniform✬))
+model.add(Dense(128, activation="relu", kernel_initializer="he_uniform"))
 model.add(Dropout(0.2))
-model.add(Dense(10, activation=✬softmax✬))
+model.add(Dense(10, activation="softmax"))
 # compile model
 opt = SGD(lr=0.001, momentum=0.9)
-model.compile(optimizer=opt, loss=✬categorical_crossentropy✬, metrics=[✬accuracy✬])
+model.compile(optimizer=opt, loss="categorical_crossentropy", metrics=["accuracy"])
 return model
 # plot diagnostic learning curves
 def summarize_diagnostics(history):
 # plot loss
 pyplot.subplot(211)
-pyplot.title(✬Cross Entropy Loss✬)
-pyplot.plot(history.history[✬loss✬], color=✬blue✬, label=✬train✬)
-pyplot.plot(history.history[✬val_loss✬], color=✬orange✬, label=✬test✬)
+pyplot.title("Cross Entropy Loss")
+pyplot.plot(history.history["loss"], color="blue", label="train")
+pyplot.plot(history.history["val_loss"], color="orange", label="test")
 # plot accuracy
 pyplot.subplot(212)
-pyplot.title(✬Classification Accuracy✬)
-pyplot.plot(history.history[✬acc✬], color=✬blue✬, label=✬train✬)
-pyplot.plot(history.history[✬val_acc✬], color=✬orange✬, label=✬test✬)
+pyplot.title("Classification Accuracy")
+pyplot.plot(history.history["acc"], color="blue", label="train")
+pyplot.plot(history.history["val_acc"], color="orange", label="test")
 # save plot to file
-filename = sys.argv[0].split(✬/✬)[-1]
-pyplot.savefig(filename + ✬_plot.png✬)
+filename = sys.argv[0].split("/")[-1]
+pyplot.savefig(filename + "_plot.png")
 pyplot.close()
 # run the test harness for evaluating a model
 20.5. How to Develop an Improved Model 252
@@ -88,7 +88,7 @@ history = model.fit(trainX, trainY, epochs=100, batch_size=64, validation_data=(
 testY), verbose=0)
 # evaluate model
 _, acc = model.evaluate(testX, testY, verbose=0)
-print(✬> %.3f✬ % (acc * 100.0))
+print("> %.3f" % (acc * 100.0))
 # learning curves
 summarize_diagnostics(history)
 # entry point, run the test harness
