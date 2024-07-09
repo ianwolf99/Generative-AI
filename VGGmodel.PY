@@ -75,7 +75,7 @@ filename = sys.argv[0].split("/")[-1]
 pyplot.savefig(filename + "_plot.png")
 pyplot.close()
 # run the test harness for evaluating a model
-20.5. How to Develop an Improved Model 252
+
 def run_test_harness():
 # load dataset
 trainX, trainY, testX, testY = load_dataset()
